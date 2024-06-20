@@ -27,10 +27,10 @@ class HomeViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "O lugar ideal para buscar, salvar e organizar seus filmes favoritos!"
-        label.textColor = .white
-        label.numberOfLines = 0
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textColor = .white
+        label.numberOfLines = 0
         return label
     }()
     
@@ -50,7 +50,6 @@ class HomeViewController: UIViewController {
         let stackView = UIStackView(arrangedSubviews: [logoImageView, coupleImageView, welcomeLabel, welcomeButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.distribution = .fillProportionally
         stackView.spacing = 32
         stackView.alignment = .center
         return stackView
@@ -78,9 +77,6 @@ class HomeViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -64),
-
-            welcomeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            welcomeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
 
             welcomeButton.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 64),
             welcomeButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -64),
