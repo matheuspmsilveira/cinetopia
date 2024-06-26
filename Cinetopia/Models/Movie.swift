@@ -16,8 +16,8 @@ struct Movie: Decodable {
     let releaseDate: String
 }
 
-//let movies: [Movie] = [
-//    Movie(id: 1, title: "Star Wars: Episódio I - A Ameaça Fantasma", image: "StarWars-Episode1", synopsis: "Obi-Wan e seu mentor embarcam em uma perigosa aventura na tentativa de salvar o planeta das garras de Darth Sidious. Durante a viagem, eles conhecem um habilidoso menino e decidem treiná-lo para se tornar um Jedi. Mas o tempo irá revelar que as coisas nem sempre são o que aparentam ser.", rate: 9.5, releaseDate: "24/06/1999"),
-//    Movie(id: 2, title: "Harry Potter e o Prisioneiro de Azkaban", image: "HP-3", synopsis: "É o início do terceiro ano na escola de bruxaria Hogwarts. Harry, Ron e Hermione têm muito o que aprender. Mas uma ameaça ronda a escola e ela se chama Sirius Black. Após doze anos encarcerado na prisão de Azkaban, ele consegue escapar e volta para vingar seu mestre, Lord Voldemort. Para piorar, os Dementores, guardas supostamente enviados para proteger Hogwarts e seguir os passos de Black, parecem ser ameaças ainda mais perigosas.", rate: 8.5, releaseDate: "04/06/2004"),
-//    Movie(id: 3, title: "Doutor Estranho", image: "DoctorStrange", synopsis: "Após sua carreira ser destruída, um brilhante, porém arrogante, cirurgião ganha uma nova chance em sua vida quando um feiticeiro o treina para se tornar o Mago Supremo.", rate: 8, releaseDate: "02/11/2016")
-//]
+let movies: [Movie] = [
+    Movie(id: "1", title: "Avatar", image: "https://github.com/alura-cursos/movie-api/blob/main/images/avatar.jpg?raw=true", synopsis: "Um militar paraplégico despachado para a lua Pandora em uma missão única fica dividido entre seguir suas ordens e proteger o mundo que ele sente ser sua casa.", rate: 7.9, releaseDate: "18/12/2009"),
+    Movie(id: "2", title: "Vingadores: Ultimato", image: "https://github.com/alura-cursos/movie-api/blob/main/images/vingadores-ultimato.jpg?raw=true", synopsis: "Após os eventos devastadores de Vingadores: Guerra Infinita, o universo está em ruínas, e com a ajuda de aliados os Vingadores se reúnem para desfazer as ações de Thanos e restaurar a ordem.", rate: 8.4, releaseDate: "25/04/2019"),
+    Movie(id: "3", title: "Avatar: O Caminho da Água", image: "https://github.com/alura-cursos/movie-api/blob/main/images/avatar-2.jpg?raw=true", synopsis: "Após os eventos devastadores de Vingadores: Guerra Infinita , o universo está em ruínas, e com a ajuda de aliados os Vingadores se reúnem para desfazer as ações de Thanos e restaurar a ordem.", rate: 7.6, releaseDate: "16/12/2022")
+]

@@ -25,6 +25,7 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
         label.font = .systemFont(ofSize: 18, weight: .medium)
         label.textColor = .white
         label.numberOfLines = 1
+        label.textAlignment = .center
         return label
     }()
     
@@ -41,7 +42,6 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         addSubview()
         setupConstraints()
-        backgroundColor = .background
     }
     
     
@@ -57,15 +57,16 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            moviePosterImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            moviePosterImageView.topAnchor.constraint(equalTo: topAnchor),
             moviePosterImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             moviePosterImageView.heightAnchor.constraint(equalToConstant: 140),
             moviePosterImageView.widthAnchor.constraint(equalToConstant: 100),
             
-            movieTitleLabel.topAnchor.constraint(equalTo: moviePosterImageView.bottomAnchor, constant: 16),
-            movieTitleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            movieTitleLabel.topAnchor.constraint(equalTo: moviePosterImageView.bottomAnchor, constant: 12),
+            movieTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            movieTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            favoriteButton.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: 16),
+            favoriteButton.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: 7),
             favoriteButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             favoriteButton.heightAnchor.constraint(equalToConstant: 25),
             favoriteButton.widthAnchor.constraint(equalToConstant: 25)
