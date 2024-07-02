@@ -8,6 +8,10 @@
 import UIKit
 import Kingfisher
 
+protocol MovieTableViewCellDelegate: AnyObject {
+    func didSelectFavoriteButton(sender: UIButton)
+}
+
 class MovieTableViewCell: UITableViewCell {
     
     private lazy var moviePosterImageView: UIImageView = {
@@ -24,7 +28,7 @@ class MovieTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .white
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         return label
     }()
     
@@ -36,17 +40,45 @@ class MovieTableViewCell: UITableViewCell {
         return label
     }()
     
+    private lazy var favoriteButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let iconImage = UIImage(systemName: "heart")?.withTintColor(.buttonBackground, renderingMode: .alwaysOriginal)
+        button.setImage(iconImage, for: .normal)
+        button.addTarget(self, action: #selector(didTapFavoriteButton), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [movieTitleLabel, movieReleaseDate, favoriteButton])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.alignment = .leading
+        return stackView
+    }()
+    
+    weak var delegate: MovieTableViewCellDelegate?
+    
     func configureCell(movie: Movie) {
         movieTitleLabel.text = movie.title
         let url = URL(string: movie.image)
         moviePosterImageView.kf.setImage(with: url)
         movieReleaseDate.text = "Lançamento: \(movie.releaseDate)"
+        
+        let heart = UIImage(systemName: "heart")?.withTintColor(.buttonBackground, renderingMode: .alwaysOriginal)
+        let heartFill = UIImage(systemName: "heart.fill")?.withTintColor(.buttonBackground, renderingMode: .alwaysOriginal)
+        
+        if movie.isSelected ?? false {
+            favoriteButton.setImage(heartFill, for: .normal)
+        } else {
+            favoriteButton.setImage(heart, for: .normal)
+        }
     }
     
     private func addSubview() {
         addSubview(moviePosterImageView)
-        addSubview(movieTitleLabel)
-        addSubview(movieReleaseDate)
+        contentView.addSubview(stackView)
     }
     
     private func setupConstraints() {
@@ -56,12 +88,12 @@ class MovieTableViewCell: UITableViewCell {
             moviePosterImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             moviePosterImageView.widthAnchor.constraint(equalToConstant: 100),
             
-            movieTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -16),
-            movieTitleLabel.leadingAnchor.constraint(equalTo: moviePosterImageView.trailingAnchor, constant: 16),
-            movieTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
-            movieReleaseDate.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: 8),
-            movieReleaseDate.leadingAnchor.constraint(equalTo: moviePosterImageView.trailingAnchor, constant: 16)
+            stackView.centerYAnchor.constraint(equalTo: moviePosterImageView.centerYAnchor),
+            stackView.leadingAnchor.constraint(equalTo: moviePosterImageView.trailingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+
+            favoriteButton.heightAnchor.constraint(equalToConstant: 25),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 25)
         ])
     }
     
@@ -85,6 +117,10 @@ class MovieTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @objc func didTapFavoriteButton(sender: UIButton) {
+        delegate?.didSelectFavoriteButton(sender: sender)
     }
 
 }

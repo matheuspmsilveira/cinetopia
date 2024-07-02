@@ -8,6 +8,10 @@
 import UIKit
 import Kingfisher
 
+protocol FavoriteMovieCollectionViewCellDelegate: AnyObject {
+    func didSelectFavoriteButton(sender: UIButton)
+}
+
 class FavoriteMovieCollectionViewCell: UICollectionViewCell {
     
     private lazy var moviePosterImageView: UIImageView = {
@@ -37,6 +41,8 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
         button.addTarget(self, action: #selector(didTapFavoriteButton), for: .touchUpInside)
         return button
     }()
+    
+    weak var delegate: FavoriteMovieCollectionViewCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -80,6 +86,6 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func didTapFavoriteButton(_ sender: UIButton) {
-        print("Botao favoritar pressionado")
+        delegate?.didSelectFavoriteButton(sender: sender)
     }
 }

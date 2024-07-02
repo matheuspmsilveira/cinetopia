@@ -30,6 +30,11 @@ class FavoriteMoviesViewController: UIViewController {
         setupConstraints()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        collectionView.reloadData()
+    }
+    
     private func addSubviews() {
         view.addSubview(collectionView)
     }
@@ -46,13 +51,14 @@ class FavoriteMoviesViewController: UIViewController {
 
 extension FavoriteMoviesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movies.count
+        return MovieManager.shared.favoritesMovies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavoriteMovieCollectionViewCell", for: indexPath) as? FavoriteMovieCollectionViewCell {
-            let movie = movies[indexPath.item]
+            let movie = MovieManager.shared.favoritesMovies[indexPath.item]
             cell.configureCell(movie: movie)
+            cell.delegate = self
             return cell
         }
         
@@ -81,6 +87,20 @@ extension FavoriteMoviesViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-#Preview {
-    FavoriteMoviesViewController()
+extension FavoriteMoviesViewController: FavoriteMovieCollectionViewCellDelegate {
+    func didSelectFavoriteButton(sender: UIButton) {
+        guard let cell = sender.superview as? FavoriteMovieCollectionViewCell else {
+            return
+        }
+        
+        guard let indexPath = collectionView.indexPath(for: cell) else {
+            return
+        }
+        
+        let selectedMovie = MovieManager.shared.favoritesMovies[indexPath.item]
+        selectedMovie.changeSelectedStatus()
+        MovieManager.shared.remove(selectedMovie)
+        
+        collectionView.reloadData()
+    }
 }
